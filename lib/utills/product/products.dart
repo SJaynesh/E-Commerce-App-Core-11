@@ -582,11 +582,19 @@ List category = products.map((e) => e['category']).toList().toSet().toList();
 
 List<Map<String, dynamic>> subCategory = [
   {
-    'icon': "assets/images/home_page/img_2.png",
+    'image': "assets/images/home_page/t-shirt.png",
     'text': "T-Shirt",
   },
   {
-    'icon': "assets/images/home_page/img_1.png",
+    'image': "assets/images/home_page/pant.png",
     'text': "Pant",
+  },
+  {
+    'image': "assets/images/home_page/dress.png",
+    'text': "Dress",
+  },
+  {
+    'image': "assets/images/home_page/jacket.png",
+    'text': "Jacket",
   }
 ];

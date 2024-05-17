@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:e_commerce_app/utills/componets/category.dart';
+import 'package:e_commerce_app/utills/componets/sub_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,7 +21,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     category.insert(0, "All");
-    log("Category : $category");
+    log("All Category : \n");
+    log("$category");
+    log("Length : ${category.length}");
   }
 
   @override
@@ -279,107 +283,35 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: h * 0.015,
             ),
+            // sub category
             Row(
               children: [
-                ...subCategory
-                    .map(
-                      (e) => mySubCategory(
-                        image: e['icon'],
-                        name: e['text'],
-                        context: context,
-                      ),
-                    )
-                    .toList(),
+                ...subCategory.map(
+                  (e) => mySubCategory(
+                    context: context,
+                    image: e['image'],
+                    text: e['text'],
+                  ),
+                )
               ],
             ),
-            SizedBox(
-              height: h * 0.015,
-            ),
+
+            // category
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  ...category
-                      .map(
-                        (e) => myCategory(textScale: textScale, cname: e),
-                      )
-                      .toList()
+                  ...category.map(
+                    (e) => myCategory(
+                      category: e,
+                      cat: cat,
+                      textScale: textScale,
+                    ),
+                  ),
                 ],
               ),
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget mySubCategory({
-    required BuildContext context,
-    required String image,
-    required String name,
-  }) {
-    double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
-    TextScaler textScaler = MediaQuery.of(context).textScaler;
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CircleAvatar(
-            radius: w * 0.08,
-            backgroundColor: const Color(0xfff7f2ed),
-            child: Image.asset(
-              image,
-              height: 50,
-            ),
-          ),
-          SizedBox(
-            height: h * 0.015,
-          ),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: textScaler.scale(16),
-              letterSpacing: 0.8,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget myCategory({
-    required TextScaler textScale,
-    required String cname,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        cat = cname;
-        log("Button name $cat");
-        setState(() {});
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: (cat == cname) ? Colors.brown : Colors.transparent,
-          border: Border.all(
-            color: (cat == cname) ? Colors.transparent : Colors.grey.shade300,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(25),
-        ),
-        margin: const EdgeInsets.all(5),
-        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-        child: Text(
-          cname.replaceFirst(
-            cname[0],
-            cname[0].toUpperCase(),
-          ),
-          style: TextStyle(
-            fontSize: textScale.scale(20),
-            color: (cat == cname) ? Colors.white : Colors.black,
-            fontWeight: (cat == cname) ? FontWeight.w500 : FontWeight.normal,
-          ),
         ),
       ),
     );
