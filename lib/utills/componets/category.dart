@@ -1,16 +1,18 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+String cat = "All";
 
 Widget myCategory({
   required String category,
-  required String cat,
   required TextScaler textScale,
+  required Function() setState,
 }) {
   return GestureDetector(
     onTap: () {
       cat = category;
+      setState();
       log("Category : $cat");
     },
     child: Container(
@@ -30,7 +32,7 @@ Widget myCategory({
           category[0].toUpperCase(),
         ),
         style: TextStyle(
-          fontSize: textScale.scale(20),
+          fontSize: textScale.scale(18),
           letterSpacing: 0.6,
           color: (cat == category) ? Colors.white : Colors.black,
         ),
