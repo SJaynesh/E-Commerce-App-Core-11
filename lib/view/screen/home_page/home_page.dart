@@ -17,6 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String? dropDownVal;
+  double sliderValue = 0;
+  RangeValues rangeValue = const RangeValues(0, 2000);
   @override
   void initState() {
     super.initState();
@@ -321,6 +324,142 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: h * 0.03,
               ),
+
+              DropdownButton(
+                items: const [
+                  DropdownMenuItem(
+                    value: "Het",
+                    child: Text("Het"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Vrund",
+                    child: Text("Vrund"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Dhruv",
+                    child: Text("Dhruv"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Krishna",
+                    child: Text("Krishna"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Het 2",
+                    child: Text("Het 2"),
+                  ),
+                ],
+                value: dropDownVal,
+                hint: const Text("Select"),
+                style: TextStyle(
+                  fontSize: textScale.scale(20),
+                  color: Colors.black,
+                ),
+                alignment: Alignment.centerLeft,
+                borderRadius: BorderRadius.circular(20),
+                dropdownColor: const Color(0xffEADFDB),
+                isExpanded: true,
+                underline: Container(),
+                onChanged: (value) {
+                  log("Value : $value");
+                  dropDownVal = value;
+                  setState(() {});
+                },
+              ),
+
+              DropdownButton(
+                items: [
+                  ...category.map(
+                    (e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(
+                        e.toString().replaceFirst(
+                              e[0],
+                              e[0].toString().toUpperCase(),
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+                value: cat,
+                borderRadius: BorderRadius.circular(20),
+                isExpanded: true,
+                icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                onChanged: (val) {
+                  cat = val.toString();
+                  setState(() {});
+                },
+              ),
+              Text(
+                "${sliderValue.toInt()}",
+                style: TextStyle(
+                  fontSize: textScale.scale(20),
+                ),
+              ),
+              Slider(
+                min: 0,
+                max: 100,
+                label: "${sliderValue.toInt()}",
+                divisions: 100,
+                activeColor: Colors.brown,
+                inactiveColor: Colors.grey.shade300,
+                thumbColor: Colors.green,
+                value: sliderValue,
+                onChanged: (val) {
+                  log("$val");
+                  sliderValue = val;
+                  setState(() {});
+                },
+              ),
+              CupertinoSlider(
+                min: 0,
+                max: 100,
+                // label: "${sliderValue.toInt()}",
+                divisions: 100,
+                activeColor: Colors.brown,
+                // inactiveColor: Colors.grey.shade300,
+                thumbColor: Colors.green,
+                value: sliderValue,
+                onChanged: (val) {
+                  log("$val");
+                  sliderValue = val;
+                  setState(() {});
+                },
+              ),
+              Visibility(
+                visible: cat != "All",
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Start: ${rangeValue.start.toInt()}",
+                          style: TextStyle(
+                            fontSize: textScale.scale(20),
+                          ),
+                        ),
+                        Text(
+                          "End: ${rangeValue.end.toInt()}",
+                          style: TextStyle(
+                            fontSize: textScale.scale(20),
+                          ),
+                        ),
+                      ],
+                    ),
+                    RangeSlider(
+                      min: 0,
+                      max: 2000,
+                      values: rangeValue,
+                      divisions: 2000,
+                      onChanged: (val) {
+                        rangeValue = val;
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
               // products
               if (cat == "All") ...[
                 ...category.map(
@@ -329,7 +468,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               ] else ...[
-                myProduct(context: context, category: cat),
+                myProduct(
+                  context: context,
+                  category: cat,
+                  min: rangeValue.start,
+                  max: rangeValue.end,
+                ),
               ],
               const SizedBox(
                 height: 200,
