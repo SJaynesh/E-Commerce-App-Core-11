@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:e_commerce_app/utills/componets/category.dart';
 import 'package:e_commerce_app/utills/componets/products.dart';
 import 'package:e_commerce_app/utills/componets/sub_category.dart';
+import 'package:e_commerce_app/utills/gloabls/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     category.insert(0, "All");
+    log("Init State in running......");
   }
 
   // void mySetState() {
@@ -78,9 +80,14 @@ class _HomePageState extends State<HomePage> {
                     size: h * 0.03,
                   ),
                   const Spacer(),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey.shade200,
-                    child: const Icon(Icons.notifications),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.cart_page);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey.shade200,
+                      child: const Icon(Icons.add_shopping_cart),
+                    ),
                   ),
                 ],
               ),
@@ -450,6 +457,8 @@ class _HomePageState extends State<HomePage> {
                       min: 0,
                       max: 2000,
                       values: rangeValue,
+                      activeColor: Colors.brown.withOpacity(0.5),
+                      inactiveColor: Colors.grey.shade300,
                       divisions: 2000,
                       onChanged: (val) {
                         rangeValue = val;

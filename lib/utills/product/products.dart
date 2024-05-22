@@ -596,3 +596,5 @@ List<Map<String, dynamic>> subCategory = [
     'text': "Jacket",
   }
 ];
+
+List cartList = [];
