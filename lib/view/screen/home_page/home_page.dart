@@ -6,8 +6,6 @@ import 'package:e_commerce_app/utills/componets/sub_category.dart';
 import 'package:e_commerce_app/utills/gloabls/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../utills/product/products.dart';
 
 class HomePage extends StatefulWidget {
