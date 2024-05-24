@@ -6,6 +6,7 @@ import 'package:e_commerce_app/utills/componets/sub_category.dart';
 import 'package:e_commerce_app/utills/gloabls/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../../utills/product/products.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,14 +79,9 @@ class _HomePageState extends State<HomePage> {
                     size: h * 0.03,
                   ),
                   const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.cart_page);
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey.shade200,
-                      child: const Icon(Icons.add_shopping_cart),
-                    ),
+                  CircleAvatar(
+                    backgroundColor: Colors.grey.shade200,
+                    child: const Icon(Icons.notifications),
                   ),
                 ],
               ),
@@ -510,10 +506,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.shopping_bag_outlined,
-              color: Colors.grey,
-              size: h * 0.04,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.cart_page);
+              },
+              child: Icon(
+                Icons.shopping_bag_outlined,
+                color: Colors.grey,
+                size: h * 0.04,
+              ),
             ),
             const Spacer(),
             Icon(
