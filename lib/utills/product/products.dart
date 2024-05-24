@@ -201,7 +201,7 @@ List<Map<String, dynamic>> products = [
     "description":
         "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
     "price": 13,
-    "discountPercentage": 8.4,
+    "discountPercentage": 8.4, //1.092
     "rating": 4.26,
     'qty': 1,
     "stock": 65,

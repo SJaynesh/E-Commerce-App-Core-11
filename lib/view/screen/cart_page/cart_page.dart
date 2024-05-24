@@ -2,9 +2,7 @@ import 'dart:developer';
 
 import 'package:e_commerce_app/utills/gloabls/routes.dart';
 import 'package:e_commerce_app/utills/product/products.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartPage extends StatefulWidget {
@@ -18,34 +16,28 @@ class _CartPageState extends State<CartPage> {
   double total = 0;
   double totalDiscount = 0;
 
-  void init() {
-    cartList.forEach((e) {
-      double discount = e['price'] * e['discountPercentage'] / 100;
-      totalDiscount += discount;
-      total = (e['price'] - totalDiscount) * e['qty'];
-    });
-  }
-
   void sumAllProduct() {
+    total = 0;
     cartList.forEach((e) {
       double discount = e['price'] * e['discountPercentage'] / 100;
       totalDiscount += discount;
-      total = (e['price'] - discount) * e['qty'];
+      total += (e['price'] - discount) * e['qty'];
     });
   }
 
   void subAllProduct() {
+    total = 0;
     cartList.forEach((e) {
       double discount = e['price'] * e['discountPercentage'] / 100;
       totalDiscount -= discount;
-      total = (e['price'] - discount) * e['qty'];
+      total += (e['price'] - discount) * e['qty'];
     });
   }
 
   @override
   void initState() {
     super.initState();
-    init();
+    sumAllProduct();
   }
 
   @override
@@ -146,10 +138,10 @@ class _CartPageState extends State<CartPage> {
                                             onTap: () {
                                               if (e['qty'] > 1) {
                                                 e['qty']--;
-                                                subAllProduct();
                                               } else {
                                                 cartList.remove(e);
                                               }
+                                              subAllProduct();
                                               setState(() {});
                                             },
                                             child: Container(
@@ -181,8 +173,8 @@ class _CartPageState extends State<CartPage> {
                                             onTap: () {
                                               if (e['stock'] > e['qty']) {
                                                 e['qty']++;
-                                                sumAllProduct();
                                               }
+                                              sumAllProduct();
                                               setState(() {});
                                             },
                                             child: Container(
